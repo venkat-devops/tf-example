@@ -5,7 +5,6 @@ pipeline {
     }
     environment {
         TF_HOME = tool('terraform-0.11.7')
-        TF_IN_AUTOMATION = "true"
         PATH = "$TF_HOME:$PATH"
         DYNAMODB_STATELOCK = "tf-statelock"
         REMOTESTATE_BUCKET = "networking-tfstate-venkatp"
