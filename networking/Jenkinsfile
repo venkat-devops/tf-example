@@ -1,13 +1,13 @@
 pipeline {
     agent any
     tools {
-        "org.jenkinsci.plugins.terraform.TerraformInstallation" "terraform-0.11.7"
+        "org.jenkinsci.plugins.terraform.TerraformInstallation" "terraform"
     }
     parameters {
     string(name: 'WORKSPACE', defaultValue: 'development', description:'worspace to use in Terraform')
     }
     environment {
-        TF_HOME = tool('terraform-0.11.7')
+        TF_HOME = tool('terraform')
         TF_IN_AUTOMATION = "true"
         PATH = "$TF_HOME:$PATH"
         DYNAMODB_STATELOCK = "tf-statelock"
