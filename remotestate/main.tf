@@ -4,15 +4,18 @@ terraform {
 
 provider "aws" {
   version = "~> 1.16.0"
+
   #region  = "${var.region}"
   region = "eu-west-2"
-  alias   = "primary"
+  alias  = "primary"
 }
 
 provider "aws" {
   version = "~> 1.16.0"
-  region  = "${var.replication_region}"
-  alias   = "replication"
+
+  #region  = "${var.replication_region}"
+  region = "eu-west-2"
+  alias  = "replication"
 }
 
 data "template_file" "application_bucket_policy" {
