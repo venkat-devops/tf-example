@@ -30,8 +30,8 @@ pipeline {
                         sh "whoami"
                         sh "terraform init -input=false \
                         --backend-config='dynamodb_table=$DYNAMODB_STATELOCK' --backend-config='bucket=$REMOTESTATE_BUCKET' \
-                        --backend-config='access_key=$CICD_ACCESS_KEY' --backend-config='secret_key=$CICD_SECRET_KEY'"
-                        sh "terraform plan -out terraform.tfplan; echo \$? > status"
+                        --backend-config='access_key=$CICD_ACCESS_KEY' --backend-config='secret_key=$CICD_SECRET_KEY'" \
+                        && "terraform plan -out terraform.tfplan; echo \$? > status"
                         stash name: "terraform-plan", includes: "terraform.tfplan"
                     }
             }
