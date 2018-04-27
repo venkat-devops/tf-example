@@ -15,7 +15,7 @@ pipeline {
         NETWORKING_SECRET_KEY = credentials('cicd_secret_key')
     }
     stages {
-        stage('NetworkInit'){
+        stage('TF_NW_Init'){
             steps {
                 dir('networking/'){
                     sh 'terraform --version'
@@ -27,7 +27,7 @@ pipeline {
                 }
             }
         }
-        stage('NetworkPlan'){
+        stage('TF_NW_Plan'){
             steps {
                 dir('networking/'){
                     script {
@@ -43,7 +43,7 @@ pipeline {
                 }
             }
         }
-        stage('NetworkApply'){
+        stage('TF_NW_Apply'){
             steps {
                 script{
                     def apply = false
