@@ -4,7 +4,7 @@ pipeline {
         "org.jenkinsci.plugins.terraform.TerraformInstallation" "terraform"
     }
     parameters {
-    string(name: 'WORKSPACE', defaultValue: 'development', description:'worspace to use in Terraform')
+        string(name: 'WORKSPACE', defaultValue: 'development', description:'worspace to use in Terraform')
     }
     environment {
         TF_HOME = tool('terraform')
@@ -20,12 +20,11 @@ pipeline {
             steps {
                 dir('networking/'){
                     sh 'terraform --version'
-                    sh 'terraform providers'
+                    sh "whoami"
+                    sh "echo \$PWD"
                     sh "terraform init -input=false -plugin-dir=$HOME/terraform_plugins \
                      --backend-config='dynamodb_table=$DYNAMODB_STATELOCK' --backend-config='bucket=$REMOTESTATE_BUCKET' \
                      --backend-config='access_key=$CICD_ACCESS_KEY' --backend-config='secret_key=$CICD_SECRET_KEY'"
-                    sh "echo \$PWD"
-                    sh "whoami"
                 }
             }
         }
@@ -33,8 +32,8 @@ pipeline {
             steps {
                 dir('networking/'){
                     script {
-                        sh "echo \$PWD"
                         sh "whoami"
+                        sh "echo \$PWD"
                         try {
                            sh "terraform workspace new ${params.WORKSPACE}"
                         } catch (err) {
