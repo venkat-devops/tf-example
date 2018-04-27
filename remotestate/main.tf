@@ -4,7 +4,8 @@ terraform {
 
 provider "aws" {
   version = "~> 1.16.0"
-  region  = "${var.region}"
+  #region  = "${var.region}"
+  region = "eu-west-2"
   alias   = "primary"
 }
 
