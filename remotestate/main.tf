@@ -3,10 +3,8 @@ terraform {
 }
 
 provider "aws" {
-  version = ">= 1.0.0"
+  version = "~> 1.16.0"
   region  = "eu-west-2"
 }
 
-resource "aws_eip" "my_eip" {
-  vpc = "true"
-}
+
