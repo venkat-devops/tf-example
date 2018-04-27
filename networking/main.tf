@@ -3,8 +3,9 @@ terraform {
 }
 
 provider "aws" {
-//  version = ">= 1.0.0"
-  region  = "eu-west-2"
+  access_key = "${var.aws_access_key}"
+  secret_key = "${var.aws_secret_key}"
+  region     = "eu-west-2"
 }
 
 resource "aws_eip" "my_eip" {
