@@ -31,9 +31,9 @@ pipeline {
                         sh "terraform init -input=false \
                         --backend-config='dynamodb_table=$DYNAMODB_STATELOCK' --backend-config='bucket=$REMOTESTATE_BUCKET' \
                         --backend-config='access_key=$CICD_ACCESS_KEY' --backend-config='secret_key=$CICD_SECRET_KEY'"
-                        //sh "terraform plan -var 'aws_access_key=$CICD_ACCESS_KEY' -var 'aws_secret_key=$CICD_SECRET_KEY' \
-                        //-out terraform.tfplan; echo \$? > status"
-                        //stash name: "terraform-plan", includes: "terraform.tfplan"
+                        sh "terraform plan -var 'aws_access_key=$CICD_ACCESS_KEY' -var 'aws_secret_key=$CICD_SECRET_KEY' \
+                        -out terraform.tfplan; echo \$? > status"
+                        stash name: "terraform-plan", includes: "terraform.tfplan"
                     }
             }
         }
@@ -50,8 +50,8 @@ pipeline {
                         currentBuild.result = 'UNSTABLE'
                     }
                     if(apply){
-                            //unstash "terraform-plan"
-                            //sh 'terraform apply terraform.tfplan'
+                            unstash "terraform-plan"
+                            sh 'terraform apply terraform.tfplan'
                             sh "echo Hello World!!!"
                         }
                 }
