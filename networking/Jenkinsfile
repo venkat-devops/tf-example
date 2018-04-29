@@ -30,6 +30,9 @@ pipeline {
         stage('TF_NW_Plan'){
             steps {
                 dir('networking/'){
+                    sh "echo \$PWD"
+                    sh "whoami"
+                    sh 'terraform --version'
                     script {
                         try {
                             sh "terraform workspace new ${params.WORKSPACE}"
